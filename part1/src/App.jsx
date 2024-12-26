@@ -1,24 +1,34 @@
 import { useState } from "react"
-import Feedback from "./Feedback.jsx"
-import Statistics from "./Statistics.jsx"
+
+const Button = (props) => {
+	return (
+		<>
+			<button onClick={props.onClick}>{props.title}</button>
+		</>
+	)
+}
 
 function App() {
 
-	const [good, setGood] = useState(0)
-	const [neutral, setNeutral] = useState(0)
-	const [bad, setBad] = useState(0)
+	const anecdotes = [
+		'If it hurts, do it more often.',
+		'Adding manpower to a late software project makes it later!',
+		'The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
+		'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
+		'Premature optimization is the root of all evil.',
+		'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
+		'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.',
+		'The only way to go fast, is to go well.'
+	]
 
-	const incrementGood = () => setGood(good + 1);
-	const incrementNeutral = () => setNeutral(neutral + 1);
-	const incrementBad = () => setBad(bad + 1);
-	const getTotal = () => good + neutral + bad;
-	const getAverage = () => (good + bad * -1) / getTotal();
-	const getPositiveRatio = () => (good / getTotal()) * 100;
+	const [selected, setSelected] = useState("")
+
+	const selectAnecdote = () => setSelected(anecdotes[Math.floor(Math.random() * anecdotes.length)])
 
 	return (
 		<div>
-			<Feedback goodClick={incrementGood} neutralClick={incrementNeutral} badClick={incrementBad}/>
-			<Statistics good={good} neutral={neutral} bad={bad} total={getTotal()} avg={getAverage()} positiveRatio={getPositiveRatio()}/>
+			<Button onClick={selectAnecdote} title="Select Anecdote"/>
+			<p>{selected}</p>
 		</div>
 	)
 }
