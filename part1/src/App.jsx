@@ -11,11 +11,14 @@ function App() {
 	const incrementGood = () => setGood(good + 1);
 	const incrementNeutral = () => setNeutral(neutral + 1);
 	const incrementBad = () => setBad(bad + 1);
+	const getTotal = () => good + neutral + bad;
+	const getAverage = () => (good + bad * -1) / getTotal();
+	const getPositiveRatio = () => (good / getTotal()) * 100;
 
 	return (
 		<div>
 			<Feedback goodClick={incrementGood} neutralClick={incrementNeutral} badClick={incrementBad}/>
-			<Statistics good={good} neutral={neutral} bad={bad}/>
+			<Statistics good={good} neutral={neutral} bad={bad} total={getTotal()} avg={getAverage()} positiveRatio={getPositiveRatio()}/>
 		</div>
 	)
 }
