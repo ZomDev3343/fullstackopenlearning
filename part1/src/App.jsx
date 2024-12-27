@@ -30,14 +30,31 @@ function App() {
 		setVotes(tmpVotes)
 	}
 
+	const getLargestAnecdote = () => {
+		let max = -1;
+		let maxId = 0;
+		for (let i = 0; i < anecdotes.length; i++) {
+			if (votes[i] > max) {
+				max = votes[i]
+				maxId = i
+			}
+		}
+		return maxId
+	}
+
 	const selectAnecdote = () => setSelected(Math.floor(Math.random() * anecdotes.length))
 
 	return (
 		<div>
+			<h1>Anecdote of the day</h1>
 			<p>{anecdotes[selected]}</p>
 			<p>has {votes[selected]} votes</p>
 			<Button onClick={selectAnecdote} title="Next anecdote"/>
 			<Button onClick={() => addVote(selected)} title="Vote"/>
+			<h1>Anecdote with the most votes</h1>
+			<p>{anecdotes[getLargestAnecdote()]}</p>
+			<p>has {votes[getLargestAnecdote()]} votes</p>
+			
 		</div>
 	)
 }
